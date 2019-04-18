@@ -1,0 +1,60 @@
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.mr-5 {
+  margin-right: 5px
+}
+
+.mt-5 {
+  margin-top: 5px
+}
+.mt-60 {
+  margin-top: 60px
+}
+
+.mt-30p {
+  margin-top: 15%
+}
+
+.ml-50p {
+  margin-left: 50%
+}
+
+.m-5 {
+  margin: 5px
+}
+
+.m-2 {
+  margin: 2px
+}
+
+.m-el-5 {
+  margin: 5px 5px 5px 0px
+}
+
+.mlr-0 {
+  margin-left: 0px
+}
+
+.mb-5 {
+  margin-bottom: 5px
+}
+.h-46 {
+  height: 46px
+}
+
+.text-center {
+  text-align: center
+}
