@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from "axios";
 
-import '../App.css';
+import '../css/App.css';
 
 class NewBooking extends Component {
     
@@ -10,7 +10,7 @@ class NewBooking extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            domain: 'localhost:8080',
+            domain: 'http://localhost:8080',
             id: '',
             name: '',
             phonenumber: '',
@@ -24,6 +24,13 @@ class NewBooking extends Component {
 
         this.setState({
             [name]: value
+        })
+    }
+
+    onClearForm = () => {
+        this.setState({
+            name: '',
+            phonenumber: '',
         })
     }
 
@@ -52,24 +59,35 @@ class NewBooking extends Component {
             .then(response => {
                 if (response.data.status === "good") {
                     alert("đặt thành công buổi hẹn! Mã xác thực là " + response.data.code);
+                    this.onClearForm();
                 } else {
                     alert("Lỗi!");
                 }
-                console.log(response.data);
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
 
-    onClearForm = () => {
-        this.setState({
-            name: '',
-            phonenumber: '',
-        })
-    }
-
     render() {
+        //Điều hướng trang chủ private/public
+        var dashboard;
+        if (localStorage.getItem('token') !== null) {
+            dashboard = <Link to="/HomeAdmin">
+                            <em className="fa fa-dashboard">
+                                &nbsp;
+                            </em>
+                            Trang chủ
+                        </Link>
+        } else {
+            dashboard = <Link to="/">
+                            <em className="fa fa-dashboard">
+                                &nbsp;
+                            </em>
+                            Trang chủ
+                        </Link>
+        }
+
         return(
             <div>
                 {/* sidebar */}
@@ -77,21 +95,16 @@ class NewBooking extends Component {
                     <div className="divider"></div>
                     <ul className="nav menu">
                         <li>
-                            <Link to="/">
-                                <em className="fa fa-dashboard">
-                                    &nbsp;
-                                </em>
-                                Trang chủ
-                            </Link>
+                            {dashboard}
                         </li>
                         <li className="active">
-                            <Link to="/NewBooking">
-                                <em className="fa fa-dashboard">
-                                    &nbsp;
-                                </em>
-                                Đặt lịch khám
-                            </Link>
-                        </li>
+                                <Link to="/NewBooking">
+                                    <em className="fa fa-dashboard">
+                                        &nbsp;
+                                    </em>
+                                    Đặt lịch khám
+                                </Link>
+                            </li>
                         <li>
                             <Link to="/CancelBooking">
                                 <em className="fa fa-dashboard">

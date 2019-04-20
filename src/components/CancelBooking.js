@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from "axios";
 
-import '../App.css';
+import '../css/App.css';
 
 class CancelBooking extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            domain: 'https://schedulemanager.herokuapp.com/',
+            domain: 'http://localhost:8080',
             status: '',
             code: '',
         }
@@ -29,7 +29,9 @@ class CancelBooking extends Component {
         })
     }
 
-    onSubmit = () => {
+    onSubmit = (event) => {
+        //chặn submit lên url
+        event.preventDefault();
         axios
             .post(
                 this.state.domain + "/cancel_appointment",
@@ -45,7 +47,7 @@ class CancelBooking extends Component {
                 if (response.data.status === "good") {
                     alert("Hủy thành công buổi hẹn");
                 } else {
-                    alert("Lỗi!");
+                    alert("Lỗi! Mã xác thực không đúng");
                 }
                 //console.log(response);
             })
@@ -55,6 +57,26 @@ class CancelBooking extends Component {
     }
     
     render() {
+
+        //Điều hướng trang chủ private/public
+        var dashboard;
+        if (localStorage.getItem('token') !== null) {
+            dashboard = <Link to="/HomeAdmin">
+                            <em className="fa fa-dashboard">
+                                &nbsp;
+                            </em>
+                            Trang chủ
+                        </Link>
+        } else {
+            dashboard = <Link to="/">
+                            <em className="fa fa-dashboard">
+                                &nbsp;
+                            </em>
+                            Trang chủ
+                        </Link>
+        }
+
+
         return(
             <div>
                 {/* sidebar */}
@@ -62,12 +84,7 @@ class CancelBooking extends Component {
                     <div className="divider"></div>
                     <ul className="nav menu">
                         <li>
-                            <Link to="/">
-                                <em className="fa fa-dashboard">
-                                    &nbsp;
-                                </em>
-                                Trang chủ
-                            </Link>
+                            {dashboard}
                         </li>
                         <li>
                             <Link to="/NewBooking">

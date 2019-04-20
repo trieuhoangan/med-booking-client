@@ -1,37 +1,52 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
+import axios from "axios";
 
-import Logo from '../images/confused.png';
+import Logo from '../../images/confused.png';
 
-class Home extends Component {
-
+class HomeAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            token: localStorage.getItem('token'),
             domain: 'http://localhost:8080',
         }
     }
-    getAPIHome = (event) => {
+
+    getAPICheckAllAppointment = () => {
+        var body_data=  {
+            pageNumber: 1,
+            numberOfForm: 1,
+        }
         axios
-            .get(
-                this.state.domain + "/home",
-                {},
+            .post(
+                this.state.domain + "/admin/check_all_appointment",
+                body_data,
                 {
-                    headers: { "content-type": "application/json" }
+                    headers: { 
+                        "Authorization": this.state.token,
+                        "content-type": "application/json", }
                 }
             )
             .then(response => {
-                console.log(response);
+                console.log(response.data);
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
+
     componentWillMount() {
-        this.getAPIHome();
+        this.getAPICheckAllAppointment();
+    }
+
+    // xóa token và đăng xuất
+    signOut = () => {
+        // console.log(localStorage.getItem("token"));
+        localStorage.removeItem("token");
     }
     
+    // Hàm render
     render() {
         return(
             <div>
@@ -63,12 +78,13 @@ class Home extends Component {
                                 Hủy lịch khám
                             </Link>
                         </li>
+
                         <li>
-                            <Link to="/Login">
+                            <Link to="/" onClick={this.signOut}>
                                 <em className="fa fa-dashboard">
                                     &nbsp;
                                 </em>
-                                Đăng nhập (Admin only)
+                                Đăng xuất
                             </Link>
                         </li>
                     </ul>
@@ -87,10 +103,11 @@ class Home extends Component {
                     </div>
                     <div className="text-center">
                         <h1>
-                            Queo căm tu đờ búc kinh sơ vịt                            
+                            Hê lô Admin {this.props.token}                    
                         </h1>
                         <img src={Logo} alt="frog"/>
                     </div>
+                    
 
                     {/* /.main */}
                 </div>
@@ -99,4 +116,4 @@ class Home extends Component {
         ); 
     }
 }
-export default Home;
+export default HomeAdmin;
