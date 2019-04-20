@@ -13,6 +13,10 @@
   font-size: large;
 }
 
+.r-fixed {
+  position: fixed;
+}
+
 .mr-5 {
   margin-right: 5px
 }

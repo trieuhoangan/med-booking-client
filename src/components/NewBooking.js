@@ -10,7 +10,7 @@ class NewBooking extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            domain: 'https://schedulemanager.herokuapp.com',
+            domain: 'localhost:8080',
             id: '',
             name: '',
             phonenumber: '',
@@ -50,13 +50,12 @@ class NewBooking extends Component {
                 }
             )
             .then(response => {
-
-                // if (response.data.status === "good") {
-                //     alert("đặt thành công buổi hẹn! Mã xác thực là " + response.data.code);
-                // } else {
-                //     alert("Lỗi!");
-                // }
-                console.log(response);
+                if (response.data.status === "good") {
+                    alert("đặt thành công buổi hẹn! Mã xác thực là " + response.data.code);
+                } else {
+                    alert("Lỗi!");
+                }
+                console.log(response.data);
             })
             .catch(function (error) {
                 console.log(error);

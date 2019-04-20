@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
+import Logo from '../images/confused.png';
+
 class Home extends Component {
     render() {
         return(
@@ -39,7 +41,7 @@ class Home extends Component {
 
                 <div className="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
                     {/* /.main */}
-                    <div className="mt-60 row">
+                    <div className="row mt-60">
                         <ol className="breadcrumb">
                             <li>
                                 <em className="fa fa-home"></em>
@@ -49,8 +51,9 @@ class Home extends Component {
                     </div>
                     <div className="text-center">
                         <h1>
-                            Queo căm tu Med Búc kinh!
+                            Queo căm tu đờ búc kinh sơ vịt                            
                         </h1>
+                        <img src={Logo} />
                     </div>
 
                     {/* /.main */}
