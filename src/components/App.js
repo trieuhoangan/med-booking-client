@@ -9,6 +9,7 @@ import HomeAdmin from './Administrator/HomeAdmin';
 import NewBooking from './NewBooking';
 import CancelBooking from './CancelBooking';
 
+
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
         localStorage.getItem('token') !== null
@@ -34,6 +35,20 @@ class App extends Component {
     }
 
     render() {
+
+        var dashboard;
+        if (localStorage.getItem('token') !== null) {
+            dashboard = <a href="/HomeAdmin" className="navbar-brand">
+                            <span>Med </span>
+                            .Booking
+                        </a>
+        } else {
+            dashboard = <a href="/" className="navbar-brand">
+                            <span>Med </span>
+                            .Booking
+                        </a>
+        }
+
         return (
             <div className="App">
                 <div>
@@ -45,10 +60,7 @@ class App extends Component {
                                     <span className="icon-bar"></span>
                                     <span className="icon-bar"></span>
                                     <span className="icon-bar"></span></button>
-                                    <a href="/" className="navbar-brand">
-                                        <span>Med </span>
-                                        .Booking
-                                    </a>
+                                    {dashboard}
                             </div>
                             {/* /.container-fluid  */}
                         </div>
@@ -60,14 +72,22 @@ class App extends Component {
                     <BrowserRouter>
                         <Switch>
                             {/* Public */}
-                            <Route exact path='/' component={Home} />                   
-                            <Route path='/Login' component={Login} />
-                            <Route path='/NewBooking' component={NewBooking} />
+                            <Route 
+                                exact path='/' 
+                                component={Home} />                   
+                            <Route 
+                                path='/Login' 
+                                component={Login} />
+                            <Route 
+                                path='/NewBooking' 
+                                component={NewBooking} />
                             <Route 
                                 path='/CancelBooking' 
                                 render={props => <CancelBooking {...props} token={this.state.token} />} />
                             {/* For Administrator only*/}
-                            <PrivateRoute path='/HomeAdmin' component={HomeAdmin} />
+                            <PrivateRoute 
+                                path='/HomeAdmin' 
+                                component={HomeAdmin} />
                         </Switch>
                     </BrowserRouter>
                     {/* /.main */}

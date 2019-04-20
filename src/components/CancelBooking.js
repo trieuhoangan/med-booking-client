@@ -55,6 +55,12 @@ class CancelBooking extends Component {
                 console.log(error);
             });
     }
+
+    // xóa token và đăng xuất
+    signOut = () => {
+        // console.log(localStorage.getItem("token"));
+        localStorage.removeItem("token");
+    }
     
     render() {
 
@@ -74,6 +80,24 @@ class CancelBooking extends Component {
                             </em>
                             Trang chủ
                         </Link>
+        }
+        
+        //hiển thị login/logout theo trạng thái hiện tại
+        var logInOutButton;
+        if (localStorage.getItem('token') !== null) {
+            logInOutButton = <Link to="/" onClick={this.signOut}>
+                                <em className="fa fa-dashboard">
+                                    &nbsp;
+                                </em>
+                                Đăng xuất
+                            </Link>
+        } else {
+            logInOutButton = <Link to="/Login" >
+                                <em className="fa fa-dashboard">
+                                    &nbsp;
+                                </em>
+                                Đăng nhập (Admin only)
+                            </Link>
         }
 
 
@@ -101,6 +125,9 @@ class CancelBooking extends Component {
                                 </em>
                                 Hủy lịch khám
                             </Link>
+                        </li>
+                        <li>
+                            {logInOutButton}
                         </li>
                     </ul>
                     {/* /.sidebar */}             
