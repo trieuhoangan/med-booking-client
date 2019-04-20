@@ -1,16 +1,21 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## api-doc: 
+https://docs.google.com/document/d/1_fayPV4Rjw48fHBT8IRE6rgaUk5kkrm9cWs7JWpJTk0/edit?fbclid=IwAR3zLXKB6ru8d-NjPHdIWGJhmRvmgmWtkmrxVIn60bv7pclJt0jk6HRE_po
 
-Version 1.0.1
-    -   Completed "Cancel appointment" feature for both customer/admin.
-    -   Completed "Login" feature.
-    -   Add backend server-test.
-    -   Add "Authentication router" when access Admin site.
-    -   Rearrange git directories...
+## requirements-doc: 
+https://docs.google.com/document/d/1Mpslh0uBDubgNVGofALxOZUGNqIh2BYwkuQ30qkYvmY/edit?fbclid=IwAR14v73J0p6BwdaXI63B9T4Fg37RXhgf0Wf31b72ocn2BeR2by2cpmd86LA
 
-Version 1.0.0
-    -   Add "Send appointment" feature.
-    -   Add "Cancel appointment" features.
-    -   Add "Login" features.
+## Version 1.0.1
+-   Completed "Cancel appointment" feature for both customer/admin.
+-   Completed "Login" feature.
+-   Add backend server-test.
+-   Add "Authentication router" when access Admin site.
+-   Rearrange git directories...
+
+## Version 1.0.0
+-   Add "Send appointment" feature.
+-   Add "Cancel appointment" features.
+-   Add "Login" features.
 
 ## Available Scripts
 In the project directory, you can run:
