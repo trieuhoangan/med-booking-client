@@ -23,6 +23,7 @@ class App extends Component {
         super(props);
         this.state = {
             token: '',
+            domain: 'http://localhost:8080',
         }
     }
 
@@ -88,6 +89,10 @@ class App extends Component {
                             <PrivateRoute 
                                 path='/HomeAdmin' 
                                 component={HomeAdmin} />
+                            <PrivateRoute 
+                                path='/AppointmentDetail' 
+                                component={HomeAdmin} />
+                                
                         </Switch>
                     </BrowserRouter>
                     {/* /.main */}

@@ -37,6 +37,7 @@ class HomeAdmin extends Component {
             });
     }
 
+
     componentWillMount() {
         this.getAPICheckAllAppointment();
     }
@@ -47,9 +48,7 @@ class HomeAdmin extends Component {
         localStorage.removeItem("token");
     }
     
-    
-
-    // Hàm render
+    //render
     render() {
         var {form_object} = this.state;
 
@@ -108,7 +107,7 @@ class HomeAdmin extends Component {
                     </div>
                     <div className="text-center">
                         <h1>
-                            Hê lô Admin                   
+                            Hê lô Admin                
                         </h1>
                     </div>
                     <br/>

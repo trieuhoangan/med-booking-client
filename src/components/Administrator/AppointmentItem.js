@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import '../../css/App.css';
 
 class AppointmentItem extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            token: localStorage.getItem('token'),
+            domain: 'http://localhost:8080',
+        }
+    }
 
     onDetail = () => {
-        this.props.onEdit(this.props.form_object.id)
+        localStorage.setItem("appointmentId", JSON.stringify(this.props.form_object.id));
     }
 
     render() {
@@ -35,20 +40,23 @@ class AppointmentItem extends Component {
                 
                 {/* Các button chức năng */}
                 <td className="text-center">
-                    <button 
-                        type="button" 
-                        className="btn btn-warning m-2"
-                        onClick={this.onDetail}>
-                        <span className="fa fa-pencil mr-5"></span>
-                        Sửa
-                    </button>
-                    <button 
+                    <Link to='/AppointmentDetail'>
+                        <button 
+                            type="button" 
+                            className="btn btn-warning m-2"
+                            onClick={this.onDetail}>
+                            <span className="fa fa-pencil mr-5"></span>
+                            Chi tiết
+                        </button>
+                    </Link>
+                    
+                    {/* <button 
                         type="button" 
                         className="btn btn-danger m-2"
                         onClick={this.onDelete}>
                         <span className="fa fa-trash mr-5"></span>
                         Xóa
-                    </button>
+                    </button> */}
                 </td>
             </tr>
         );

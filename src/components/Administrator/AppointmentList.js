@@ -33,7 +33,7 @@ class AppointmentList extends Component {
 
     render() {
         var {form_object} = this.props;
-        var {filterName, filterPhoneNum, filterDay, filterSession, filterStatus} = this.state;
+        // var {filterName, filterPhoneNum, filterDay, filterSession, filterStatus} = this.state;
         var elmAppointment = form_object.map((form_object, index) => {
             return <AppointmentItem 
                         key={form_object.id}
@@ -43,6 +43,7 @@ class AppointmentList extends Component {
                         onDetail={this.props.onDetail}
                     />
         });
+
         return(
             <table className="table table-hover mt-15">
                 <thead>
@@ -63,7 +64,7 @@ class AppointmentList extends Component {
                                 type="text" 
                                 className="form-control"
                                 name="filterName" 
-                                value={filterName}
+                                // value={filterName}
                                 onChange={this.onChange}/>
                         </td>
                         <td>
@@ -71,7 +72,7 @@ class AppointmentList extends Component {
                                 type="text" 
                                 className="form-control"
                                 name="filterPhoneNum" 
-                                value={filterPhoneNum}
+                                // value={filterPhoneNum}
                                 onChange={this.onChange}/>
                         </td>
                         <td>
@@ -79,7 +80,7 @@ class AppointmentList extends Component {
                                 type="text" 
                                 className="form-control"
                                 name="filterDay" 
-                                value={filterDay}
+                                // value={filterDay}
                                 onChange={this.onChange}/>
                         </td>
                         <td>
@@ -87,7 +88,7 @@ class AppointmentList extends Component {
                                 type="text" 
                                 className="form-control"
                                 name="filterSession" 
-                                value={filterSession}
+                                // value={filterSession}
                                 onChange={this.onChange}/>
                         </td>
                         <td>
@@ -95,7 +96,7 @@ class AppointmentList extends Component {
                                 type="text" 
                                 className="form-control"
                                 name="filterStatus" 
-                                value={filterStatus}
+                                // value={filterStatus}
                                 onChange={this.onChange}/>
                         </td>
                         <td></td>
