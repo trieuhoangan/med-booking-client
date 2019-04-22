@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from "axios";
 
-import Logo from '../../images/confused.png';
+import AppointmentList from './AppointmentList';
 
 class HomeAdmin extends Component {
     constructor(props) {
@@ -10,13 +10,14 @@ class HomeAdmin extends Component {
         this.state = {
             token: localStorage.getItem('token'),
             domain: 'http://localhost:8080',
+            form_object: [],
         }
     }
 
     getAPICheckAllAppointment = () => {
         var body_data=  {
             pageNumber: 1,
-            numberOfForm: 1,
+            numberOfForm: 10,
         }
         axios
             .post(
@@ -46,8 +47,12 @@ class HomeAdmin extends Component {
         localStorage.removeItem("token");
     }
     
+    
+
     // Hàm render
     render() {
+        var {form_object} = this.state;
+
         return(
             <div>
                 {/* sidebar */}
@@ -103,12 +108,16 @@ class HomeAdmin extends Component {
                     </div>
                     <div className="text-center">
                         <h1>
-                            Hê lô Admin {this.props.token}                    
+                            Hê lô Admin                   
                         </h1>
-                        <img src={Logo} alt="frog"/>
                     </div>
-                    
-
+                    <br/>
+                    {/* data tables */}
+                    <div className="">
+                        <AppointmentList
+                            form_object={form_object}
+                            onDetail={this.onDetail} />
+                    </div>
                     {/* /.main */}
                 </div>
             </div>        
