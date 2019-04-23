@@ -8,7 +8,9 @@ import Login from './Login';
 import HomeAdmin from './Administrator/HomeAdmin';
 import NewBooking from './NewBooking';
 import CancelBooking from './CancelBooking';
-
+import HomeAppointmentSession from './Administrator/HomeAppointmentSession';
+import AppointmentSessionDetail from './Administrator/AppointmentSessionDetail';
+import AddAccount from './Administrator/AddAccount';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -92,7 +94,15 @@ class App extends Component {
                             <PrivateRoute 
                                 path='/AppointmentDetail' 
                                 component={HomeAdmin} />
-                                
+                            <PrivateRoute 
+                                path='/HomeAppointmentSession' 
+                                component={HomeAppointmentSession} />
+                            <PrivateRoute 
+                                path='/AppointmentSessionDetail' 
+                                component={AppointmentSessionDetail} />
+                            <PrivateRoute 
+                                path='/AddAccount' 
+                                component={AddAccount} />   
                         </Switch>
                     </BrowserRouter>
                     {/* /.main */}

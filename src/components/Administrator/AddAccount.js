@@ -2,13 +2,17 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from "axios";
 
-import '../css/App.css';
+import '../../css/App.css';
 
 class CancelBooking extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            token: localStorage.getItem('token'),
             domain: 'http://localhost:8080',
+            username: '',
+            password: '',
+            confirmPass: '',
             status: '',
             code: '',
         }
@@ -20,10 +24,6 @@ class CancelBooking extends Component {
         var name = target.name;
         var value = target.value;
 
-        // if (name === 'type') {
-        //     value = target.value === "true" ? true : false;
-        // }
-
         this.setState({
             [name]: value
         })
@@ -32,28 +32,37 @@ class CancelBooking extends Component {
     onSubmit = (event) => {
         //chặn submit lên url
         event.preventDefault();
-        axios
-            .post(
-                this.state.domain + "/cancel_appointment",
-                {
-                    status: this.state.status,
-                    code: this.state.code,
-                },
-                {
-                    headers: { "content-type": "application/json" }
-                }
-            )
-            .then(response => {
-                if (response.data.status === "good") {
-                    alert("Hủy thành công buổi hẹn");
-                } else {
-                    alert("Lỗi! Mã xác thực không đúng");
-                }
-                //console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        // check xem xác nhận pass có giống pass không
+        if (this.state.password === this.state.confirmPass) {
+            axios
+                .post(
+                    this.state.domain + "/admin/add_account",
+                    {
+                        username: this.state.username,
+                        password: this.state.password,
+                    },
+                    {
+                        headers: { 
+                            "Authorization": this.state.token,
+                            "content-type": "application/json", }
+                    }
+                )
+                .then(response => {
+                    if (response.data.status === "good") {
+                        alert("Tạo tài khoản thành công");
+                    } else {
+                        alert("Lỗi!");
+                    }
+                    //console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+        else {
+            alert("Mật khẩu không trùng khớp!")
+        }
+        
     }
 
     // xóa token và đăng xuất
@@ -131,7 +140,7 @@ class CancelBooking extends Component {
                                 Đặt lịch khám
                             </Link>
                         </li>
-                        <li className="active">
+                        <li >
                             <Link to="/CancelBooking">
                                 <em className="fa fa-dashboard">
                                     &nbsp;
@@ -143,7 +152,14 @@ class CancelBooking extends Component {
                         <li>
                             {homeAppointmentSession}
                         </li>
-
+                        <li className="active">
+                            <Link to="/AddAccount">
+                                <em className="fa fa-dashboard">
+                                    &nbsp;
+                                </em>
+                                Tạo tài khoản
+                            </Link>
+                        </li>
                         <li>
                             {logInOutButton}
                         </li>
@@ -159,17 +175,17 @@ class CancelBooking extends Component {
                                 <em className="fa fa-home"></em>
                             </li>
                             <li>Dashboard</li>
-                            <li className="active">Hủy lịch</li>
+                            <li className="active">Tạo tài khoản</li>
                         </ol>
                     </div>
                     <div>
                         <h1>
-                            Queo căm tu hủy lịch
+                            Tạo tài khoản mới
                         </h1>
                         <div className="panel panel-info col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div className="panel-heading">
                                 <h3 className="panel-title">
-                                    Huỷ lịch khám bệnh
+                                    Điền thông tin
                                     &nbsp;
                                 </h3>
                             </div>
@@ -177,25 +193,53 @@ class CancelBooking extends Component {
                                 <form onSubmit={this.onSubmit}>                                   
                                         {/* Họ Tên (input) */}
                                         <div className="form-group">
-                                            <label>Mã xác thực</label>
+                                            <label>Tên tài khoản</label>
                                             <input
                                                 type="text"
-                                                name="code"
+                                                name="username"
                                                 className="form-control"
                                                 id=""
-                                                placeholder="mã xác thực của buổi hẹn"
-                                                value={this.state.code}
+                                                placeholder="username"
+                                                value={this.state.username}
+                                                onChange={this.onChange} />
+                                            <label>Mật khẩu</label>
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                className="form-control"
+                                                id=""
+                                                placeholder="password"
+                                                value={this.state.password}
+                                                onChange={this.onChange} />
+                                            <label>Nhập lại mật khẩu</label>
+                                            <input
+                                                type="password"
+                                                name="confirmPass"
+                                                className="form-control"
+                                                id=""
+                                                placeholder="nhập lại password"
+                                                value={this.state.confirmPass}
                                                 onChange={this.onChange} />
                                         </div>
                                         {/* Button hoàn tất  */}
                                         <button
                                             type="submit"
                                             className="btn btn-primary"
-                                            disabled={!this.state.code}
+                                            disabled={!this.state.username
+                                                ||  !this.state.password
+                                                ||  !this.state.confirmPass}
                                         >
                                             <span className="fa fa-check mr-5"></span>
                                             Xác nhận
                                         </button>
+                                        &nbsp;
+                                        <Link to="/HomeAdmin">
+                                            <button 
+                                                type="button" 
+                                                className="btn btn-warning">
+                                                Huỷ
+                                            </button>
+                                        </Link>
                                 </form>
                             </div>
                         </div>

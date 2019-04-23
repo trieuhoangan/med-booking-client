@@ -14,10 +14,39 @@ class HomeAdmin extends Component {
         }
     }
 
+    getAPICheckOneApointment = () => {
+        axios
+            .post(
+                this.state.domain + "/admin/check_one_appointment",
+                {
+                    id: 1,
+                },
+                {
+                    headers: { 
+                        "Authorization": this.state.token,
+                        "content-type": "application/json", }
+                }
+            )
+            .then(response => {
+                if (response.data.form_object !== null) {
+                    this.setState({
+                        form_object: response.data.form_object,
+                    })
+                } else {
+                    alert("Lỗi!");
+                }
+                //console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        localStorage.removeItem("appointmentId");
+    }
+
     getAPICheckAllAppointment = () => {
         var body_data=  {
-            pageNumber: 1,
-            numberOfForm: 10,
+            numberPage: 1,
+            numberOfForm: 1,
         }
         axios
             .post(
@@ -30,7 +59,10 @@ class HomeAdmin extends Component {
                 }
             )
             .then(response => {
-                console.log(response.data);
+                this.setState({
+                    form_object: response.data.list,
+                })
+                console.log(this.state.form_object[1]);
             })
             .catch(function (error) {
                 console.log(error);
@@ -39,7 +71,8 @@ class HomeAdmin extends Component {
 
 
     componentWillMount() {
-        this.getAPICheckAllAppointment();
+        // this.getAPICheckAllAppointment();
+        this.getAPICheckOneApointment();
     }
 
     // xóa token và đăng xuất
@@ -82,7 +115,22 @@ class HomeAdmin extends Component {
                                 Hủy lịch khám
                             </Link>
                         </li>
-
+                        <li>
+                            <Link to="/HomeAppointmentSession">
+                                <em className="fa fa-dashboard">
+                                    &nbsp;
+                                </em>
+                                Quản lý phiên
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/AddAccount">
+                                <em className="fa fa-dashboard">
+                                    &nbsp;
+                                </em>
+                                Tạo tài khoản
+                            </Link>
+                        </li>
                         <li>
                             <Link to="/" onClick={this.signOut}>
                                 <em className="fa fa-dashboard">
@@ -103,6 +151,7 @@ class HomeAdmin extends Component {
                                 <em className="fa fa-home"></em>
                             </li>
                             <li className="active">Dashboard</li>
+                            <li className="active">Admin</li>
                         </ol>
                     </div>
                     <div className="text-center">

@@ -8,21 +8,26 @@ class AppointmentItem extends Component {
         this.state = {
             token: localStorage.getItem('token'),
             domain: 'http://localhost:8080',
-            name: this.props.form_object[1],
-            phoneNumber: this.props.form_object[2],
-            day: this.props.form_object[3],
-            status: this.props.form_object[4],
-            session: this.props.form_object[5],
+            day: this.props.day_object.day,
+            morningCase: this.props.day_object.morningCase,
+            afternoonCase: this.props.day_object.afternoonCase,
+            morningMaxCase: this.props.day_object.morningMaxCase,
+            afternoonMaxCase: this.props.day_object.afternoonMaxCase,
         }
     }
 
     onDetail = () => {
-        localStorage.setItem("appointmentId", JSON.stringify(this.props.form_object.id));
+        localStorage.setItem("dayOjDay",this.state.day);
+        localStorage.setItem("dayOjmorningCase",this.state.morningCase);
+        localStorage.setItem("dayOjmorningMaxCase",this.state.morningMaxCase);
+        localStorage.setItem("dayOjafternoonCase",this.state.afternoonCase);
+        localStorage.setItem("dayOjafternoonMaxCase",this.state.afternoonMaxCase);
     }
 
     render() {
-        var {form_object, index} = this.props;
-        console.log(form_object)
+        var {day, morningCase, afternoonCase, morningMaxCase, afternoonMaxCase} = this.state;
+        var {index} = this.props;
+        // console.log(day_object)
         return(
             // bắt sự kiện Edit khi click vào từng dòng trong bảng
             <tr>    
@@ -30,23 +35,23 @@ class AppointmentItem extends Component {
                 <td>{index + 1}</td>
 
                 {/* Tên */}
-                <td>{form_object[1]}</td>
+                <td>{day}</td>
 
                 {/* Số điện thoại */}
-                <td>{form_object[2]}</td>
+                <td>{morningCase}</td>
 
                 {/* Ngày */}
-                <td>{form_object[3]}</td>
+                <td>{afternoonCase}</td>
 
                 {/* Status */}
-                <td>{form_object[4]}</td>
+                <td>{morningMaxCase}</td>
 
                 {/* Session */}
-                <td>{form_object[5]}</td>
+                <td>{afternoonMaxCase}</td>
                 
                 {/* Các button chức năng */}
                 <td className="text-center">
-                    <Link to='/AppointmentDetail'>
+                    <Link to='/AppointmentSessionDetail'>
                         <button 
                             type="button" 
                             className="btn btn-warning m-2"

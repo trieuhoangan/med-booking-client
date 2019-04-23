@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import '../../css/App.css';
 
-import AppointmentItem from './AppointmentItem'
+import AppointmentSessionItem from './AppointmentSessionItem'
 
-class AppointmentList extends Component {
+class AppointmentSessionList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,13 +32,13 @@ class AppointmentList extends Component {
     // }
 
     render() {
-        var {form_object} = this.props;
+        var {day_object} = this.props;
         // var {filterName, filterPhoneNum, filterDay, filterSession, filterStatus} = this.state;
-        var elmAppointment = form_object.map((form_object, index) => {
-            return <AppointmentItem 
-                        key={form_object.id}
+        var elmAppointment = day_object.map((day_object, index) => {
+            return <AppointmentSessionItem 
+                        key={day_object.id}
                         index={index} 
-                        form_object={form_object}
+                        day_object={day_object}
                         onDetail={this.props.onDetail}
                     />
         });
@@ -48,11 +48,11 @@ class AppointmentList extends Component {
                 <thead>
                     <tr>
                         <th className="text-center">STT</th>
-                        <th className="text-center">Họ Tên</th>
-                        <th className="text-center">Số đt</th>
                         <th className="text-center">Ngày</th>
-                        <th className="text-center">Sesstion</th>
-                        <th className="text-center">Status</th>
+                        <th className="text-center">Số ca sáng</th>
+                        <th className="text-center">Số ca chiều</th>
+                        <th className="text-center">Giới hạn ca sáng</th>
+                        <th className="text-center">Giới hạn ca chiều</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -106,4 +106,4 @@ class AppointmentList extends Component {
         );
     }
 }
-export default AppointmentList;
+export default AppointmentSessionList;

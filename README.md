@@ -5,6 +5,16 @@ https://docs.google.com/document/d/1_fayPV4Rjw48fHBT8IRE6rgaUk5kkrm9cWs7JWpJTk0/
 ## requirements-doc: 
 https://docs.google.com/document/d/1Mpslh0uBDubgNVGofALxOZUGNqIh2BYwkuQ30qkYvmY/edit?fbclid=IwAR14v73J0p6BwdaXI63B9T4Fg37RXhgf0Wf31b72ocn2BeR2by2cpmd86LA
 
+## Version 1.1
+-   Add "Create new account" feature
+-   Add Schedule session View
+-   Add Schedule session detail View
+-   Add Schedule session Modifying View
+-   Add Check available case feature
+-   Modify the "New Booking" feature
+-   Fix some bugs
+
+
 ## Version 1.0.2
 -   Add "check Appointment detail" feature
 -   Fix some bugs

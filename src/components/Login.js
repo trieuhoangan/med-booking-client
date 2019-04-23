@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-// import axios from "axios";
+import axios from "axios";
 
 import '../css/App.css';
 
@@ -29,37 +29,37 @@ class Login extends Component {
     handleLogin = (event) => {
         //chặn submit lên url
         event.preventDefault();
-        // //API Authentication
-        // axios
-        //     .post(
-        //         this.state.domain + "/login",
-        //         {
-        //             username: this.state.username,
-        //             password: this.state.password,
-        //         },
-        //         {
-        //             headers: { "content-type": "application/json" }
-        //         }
-        //     )
-        //     .then(response => {
-        //         if (response.data.token === null) {
-        //             // alert("Tài khoản hoặc mật khẩu không đúng");
-        //             // localStorage.setItem("token", JSON.stringify("lfkjajhdjfahkjdshf"));
-        //         } else {
-        //             //Login thành công
-        //             localStorage.setItem("token", JSON.stringify(response.data.token));
-        //             //Thay path /login -> /HomeAdmin khi event login thanh cong                    
-        //             this.props.history.replace('/HomeAdmin');                    
-        //         }
-        //         // console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
+        //API Authentication
+        axios
+            .post(
+                this.state.domain + "/login",
+                {
+                    username: this.state.username,
+                    password: this.state.password,
+                },
+                {
+                    headers: { "content-type": "application/json" }
+                }
+            )
+            .then(response => {
+                if (response.data.token === null) {
+                    // alert("Tài khoản hoặc mật khẩu không đúng");
+                    // localStorage.setItem("token", JSON.stringify("lfkjajhdjfahkjdshf"));
+                } else {
+                    //Login thành công
+                    localStorage.setItem("token",response.data.token);
+                    //Thay path /login -> /HomeAdmin khi event login thanh cong                    
+                    this.props.history.replace('/HomeAdmin');                    
+                }
+                // console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
-        //Fake authen
-        localStorage.setItem("token", JSON.stringify("lfkjajhdjfahkjdshf"));
-        this.props.history.replace('/HomeAdmin'); 
+        // //Fake authen
+        // localStorage.setItem("token", JSON.stringify("lfkjajhdjfahkjdshf"));
+        // this.props.history.replace('/HomeAdmin'); 
 
     }
     render() {

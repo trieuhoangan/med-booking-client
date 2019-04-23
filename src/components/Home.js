@@ -6,13 +6,16 @@ import Logo from '../images/confused.png';
 
 class Home extends Component {
 
+    // Hàm khởi tạo
     constructor(props) {
         super(props);
         this.state = {
             domain: 'http://localhost:8080',
         }
     }
-    getAPIHome = (event) => {
+
+    // Lấy API check server khi truy cập
+    getAPIHome = () => {
         axios
             .get(
                 this.state.domain + "/home",
@@ -22,17 +25,22 @@ class Home extends Component {
                 }
             )
             .then(response => {
-                console.log(response);
+                console.log("GET: " + response.status + " - Hello world");
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
+
+    // CWM
     componentWillMount() {
         this.getAPIHome();
     }
     
+    // render
     render() {
+
+        // render jsx
         return(
             <div>
                 {/* sidebar */}
@@ -87,15 +95,14 @@ class Home extends Component {
                     </div>
                     <div className="text-center">
                         <h1>
-                            Queo căm tu đờ búc kinh sơ vịt                            
+                            Hệ thống Med .Booking Online                           
                         </h1>
                         <img src={Logo} alt="frog"/>
                     </div>
 
                     {/* /.main */}
                 </div>
-            </div>        
-            
+            </div>                   
         ); 
     }
 }
