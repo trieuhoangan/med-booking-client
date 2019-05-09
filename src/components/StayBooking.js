@@ -119,10 +119,11 @@ class StayBooking extends Component {
 
     onSubmit = (event) => {
         //chặn submit lên url
+        event.preventDefault();
         if(this.state.phoneNumber.length<10||this.state.phoneNumber.length>11){
             alert("số điện thoại không phù hợp")
         }else{
-        event.preventDefault();
+        
         var form_object=  {
             id: '',
             name: this.state.name,
@@ -154,8 +155,8 @@ class StayBooking extends Component {
                     alert("đặt thành công buổi hẹn! Mã xác thực là " + response.data.code);
                     this.onClearForm();
                 } else if(response.data.status==="cant"){
-                    alert("Lịch bị trùng vào ngày " + response.data.code);
-                    this.onClearForm();
+                    alert("Ngày " + response.data.code+" không còn chỗ trống");
+                    
                 } 
                 else {
                     alert("Lỗi!");
@@ -164,7 +165,7 @@ class StayBooking extends Component {
             .catch(function (error) {
                 console.log(error);
             });
-        this.onClearForm();
+        
         }
     }
 

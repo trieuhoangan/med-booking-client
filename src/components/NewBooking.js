@@ -118,8 +118,12 @@ class NewBooking extends Component {
     }
 
     onSubmit = (event) => {
-        //chặn submit lên url
-        event.preventDefault();
+         //chặn submit lên url
+         event.preventDefault();
+        if(this.state.phoneNumber.length<10||this.state.phoneNumber.length>11){
+            alert("số điện thoại không phù hợp")
+        }else{
+       
         
         
         // alert(this.state.day)
@@ -153,14 +157,17 @@ class NewBooking extends Component {
                 if (response.data.status === "good") {
                     alert("đặt thành công buổi hẹn! Mã xác thực là " + response.data.code);
                     this.onClearForm();
-                } else {
+                } else if(response.data.status === "wrong day") {
+                    alert("Ngày không hợp lệ, xin chọn ngày khác");
+                }
+                else {
                     alert("Lỗi!");
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
-        this.onClearForm();
+        }
     }
 
 
@@ -348,7 +355,7 @@ class NewBooking extends Component {
                                     <div className="col-md-6">                                  
                                         {/* Họ Tên (input) */}
                                         <div className="form-group">
-                                            <label>Họ và tên (bắt buộc) </label>
+                                            <label>Họ và tên <font color="red">*</font> </label>
                                             <input
                                                 type="text"
                                                 name="name"
@@ -359,7 +366,7 @@ class NewBooking extends Component {
                                                 onChange={this.onChange} />
                                         </div>
                                         <div className="form-group">
-                                            <label>Địa chỉ (bắt buộc) </label>
+                                            <label>Địa chỉ <font color="red">*</font> </label>
                                             <input
                                                 type="text"
                                                 name="address"
@@ -371,7 +378,7 @@ class NewBooking extends Component {
                                         </div>
                                         {/* Thời gian (input) */}
                                         <div className="form-group">
-                                            <label>Ngày (bắt buộc)</label>
+                                            <label>Ngày <font color="red">*</font></label>
                                             <input
                                                 type="date"
                                                 className="form-control"
@@ -385,7 +392,7 @@ class NewBooking extends Component {
                                     <div className="col-md-6">
                                         {/* Số điện thoại (input) */}
                                         <div className="form-group">
-                                            <label>Số điện thoại (bắt buộc)</label>
+                                            <label>Số điện thoại <font color="red">*</font></label>
                                             <input
                                                 type="text"
                                                 name="phoneNumber"
@@ -396,7 +403,7 @@ class NewBooking extends Component {
                                                 onChange={this.onChange} />
                                         </div>
                                         <div className="form-group">
-                                            <label>Giới tính (bắt buộc)</label>
+                                            <label>Giới tính <font color="red">*</font></label>
                                             <select
                                                 className="form-control"
                                                 name="gender"
@@ -409,7 +416,7 @@ class NewBooking extends Component {
 
                                         {/* Session (select) */}
                                         <div className="form-group">
-                                            <label>Phiên (bắt buộc)</label>
+                                            <label>Phiên <font color="red">*</font></label>
                                             <select
                                                 className="form-control"
                                                 name="session"
@@ -422,7 +429,7 @@ class NewBooking extends Component {
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group">
-                                            <label>Triệu chứng (bắt buộc)</label>
+                                            <label>Triệu chứng <font color="red">*</font></label>
                                                 <textarea
                                                     type="text"
                                                     name="problem"

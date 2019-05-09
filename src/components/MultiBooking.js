@@ -102,36 +102,40 @@ class MultiBooking extends Component {
     onSubmit = (event) => {
         //chặn submit lên url
         event.preventDefault();
-        var wrapper=  {
-            id: '',
-            name: this.state.name,
-            phoneNumber: this.state.phoneNumber,
-            day: this.state.day,
-            number:this.state.number
+        if(this.state.phoneNumber.length<10||this.state.phoneNumber.length>11){
+            alert("số điện thoại không phù hợp")
+        }else{
+           
+            var wrapper=  {
+                id: '',
+                name: this.state.name,
+                phoneNumber: this.state.phoneNumber,
+                day: this.state.day,
+                number:this.state.number
+            }
+            axios
+                .post(
+                    this.state.domain + "/multi_booking",
+                    wrapper,
+                    {
+                        headers: { "content-type": "application/json", }
+                    }
+                )
+                .then(response => {
+                    if (response.data.status === "good") {
+                        alert("đặt thành công buổi hẹn! Mã xác thực là " + response.data.code);
+                        this.onClearForm();
+                    } else if(response.data.status === "overload"){
+                        alert("Ngày không đủ để đăng ký, xin chọn lại ngày khác, xin cảm ơn !")
+                    }
+                    else {
+                        alert("Lỗi!");
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
-        axios
-            .post(
-                this.state.domain + "/multi_booking",
-                wrapper,
-                {
-                    headers: { "content-type": "application/json", }
-                }
-            )
-            .then(response => {
-                if (response.data.status === "good") {
-                    alert("đặt thành công buổi hẹn! Mã xác thực là " + response.data.code);
-                    this.onClearForm();
-                } else if(response.data.status === "overload"){
-                    alert("Ngày không đủ để đăng ký, xin chọn lại ngày khác, xin cảm ơn !")
-                }
-                else {
-                    alert("Lỗi!");
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        
     }
 
 
@@ -318,7 +322,7 @@ class MultiBooking extends Component {
                                     <div className="col-md-6">                                  
                                         {/* Họ Tên (input) */}
                                         <div className="form-group">
-                                            <label>Họ và tên (bắt buộc) </label>
+                                            <label>Họ và tên <font color="red">*</font> </label>
                                             <input
                                                 type="text"
                                                 name="name"
@@ -330,16 +334,16 @@ class MultiBooking extends Component {
                                         </div>
                                         <div className="form-group">
                                             <label>Ngày</label>
-                                            <select
+                                            <input
+                                                type="date"
                                                 className="form-control"
                                                 name="day"
                                                 value={this.state.day}
-                                                onChange={this.onChange}>
-                                                {availableDay}
-                                            </select>
+                                                onChange={this.onChange}/>
+                                               
                                         </div>
                                         <div className="form-group">
-                                            <label>Địa chỉ (bắt buộc) </label>
+                                            <label>Địa chỉ <font color="red">*</font> </label>
                                             <input
                                                 type="text"
                                                 name="address"
@@ -366,7 +370,7 @@ class MultiBooking extends Component {
                                     <div className="col-md-6">
                                         {/* Số điện thoại (input) */}
                                         <div className="form-group">
-                                            <label>Số điện thoại (bắt buộc)</label>
+                                            <label>Số điện thoại <font color="red">*</font></label>
                                             <input
                                                 type="text"
                                                 name="phoneNumber"

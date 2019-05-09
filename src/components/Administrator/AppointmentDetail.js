@@ -178,46 +178,49 @@ class AppointmentDetail extends Component {
     onSubmit = (event) => {
         //chặn submit lên url
         event.preventDefault();
-        var form_object=  {
-            id: this.state.id,
-            name: this.state.name,
-            phoneNumber: this.state.phoneNumber,
-            day: this.state.day,
-            session:this.state.session,
-            status: this.state.status,
-            result: this.state.result,
-            code: this.state.code,
-            stay: this.state.stay,
-            begin: this.state.begin,
-            end: this.state.end,
-            dayId: this.state.dayId,
-            gender: this.state.gender,
-            home:this.state.home,
-            address:this.state.address,
-            problem:this.state.problem,
+        if(this.state.phoneNumber.length<10||this.state.phoneNumber.length>11){
+            alert("số điện thoại không phù hợp")
+        }else{
+            var form_object=  {
+                id: this.state.id,
+                name: this.state.name,
+                phoneNumber: this.state.phoneNumber,
+                day: this.state.day,
+                session:this.state.session,
+                status: this.state.status,
+                result: this.state.result,
+                code: this.state.code,
+                stay: this.state.stay,
+                begin: this.state.begin,
+                end: this.state.end,
+                dayId: this.state.dayId,
+                gender: this.state.gender,
+                home:this.state.home,
+                address:this.state.address,
+                problem:this.state.problem,
+            }
+            axios
+                .post(
+                    this.state.domain + "/admin/update_appointment",
+                    form_object,
+                    {
+                        headers: { "content-type": "application/json", }
+                    }
+                )
+                .then(response => {
+                    console.log(response)
+                    if (response.data === "updated") {
+                        alert("Cập nhật thành công !");
+                    } else {
+                        alert("Lỗi!");
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        
         }
-        axios
-            .post(
-                this.state.domain + "/admin/update_appointment",
-                form_object,
-                {
-                    headers: { "content-type": "application/json", }
-                }
-            )
-            .then(response => {
-                console.log(response)
-                if (response.data === "updated") {
-                    alert("Cập nhật thành công !");
-                } else {
-                    alert("Lỗi!");
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-      
     }
-
 
     // xóa token và đăng xuất
     signOut = () => {
@@ -380,7 +383,7 @@ class AppointmentDetail extends Component {
                                         onChange={this.onChange} />
                                 </div>
                                 <div className="form-group">
-                                    <label>Địa chỉ (bắt buộc) </label>
+                                    <label>Địa chỉ <font color="red">*</font> </label>
                                     <input
                                         type="text"
                                         name="address"
@@ -393,13 +396,14 @@ class AppointmentDetail extends Component {
                                 {/* Thời gian (input) */}
                                 <div className="form-group">
                                     <label>Ngày</label>
-                                    <select
+                                    <input
+                                        type="date"
                                         className="form-control"
                                         name="day"
                                         value={this.state.day}
-                                        onChange={this.onChange}>
-                                        {availableDay}
-                                    </select>
+                                        onChange={this.onChange}
+                                        />
+                                        
                                 </div>
                             </div>
                             <div className="col-md-6">
@@ -417,7 +421,7 @@ class AppointmentDetail extends Component {
                                 </div>
                                 
                                 <div className="form-group">
-                                    <label>Giới tính (bắt buộc)</label>
+                                    <label>Giới tính <font color="red">*</font></label>
                                     
                                     <select
                                         className="form-control"

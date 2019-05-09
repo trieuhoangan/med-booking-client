@@ -96,6 +96,9 @@ class OldCustomer extends Component {
     }
     onSubmitCustom = (event) =>{
         event.preventDefault();
+        if(this.state.phoneNumber.length<10||this.state.phoneNumber.length>11){
+            alert("số điện thoại không phù hợp")
+        }else{
         var body_data={
             name:this.state.customerName,
             phoneNumber:this.state.customerPhonenumber
@@ -125,12 +128,15 @@ class OldCustomer extends Component {
             .catch(function (error) {
                 console.log(error);
             });
-        
+        }
     }
 
     onSubmit = (event) => {
         //chặn submit lên url
         event.preventDefault();
+        if(this.state.phoneNumber.length<10||this.state.phoneNumber.length>11){
+            alert("số điện thoại không phù hợp")
+        }else{
         var form_object=  {
             id: '',
             name: this.state.name,
@@ -168,7 +174,7 @@ class OldCustomer extends Component {
             .catch(function (error) {
                 console.log(error);
             });
-        this.onClearForm();
+        }
     }
 
     
@@ -303,7 +309,7 @@ class OldCustomer extends Component {
                         <div className="col-md-6">                                  
                             {/* Họ Tên (input) */}
                             <div className="form-group">
-                                <label>Họ và tên (bắt buộc) </label>
+                                <label>Họ và tên <font color="red">*</font> </label>
                                 <input
                                     type="text"
                                     name="name"
@@ -314,7 +320,7 @@ class OldCustomer extends Component {
                                     onChange={this.onChange} />
                             </div>
                             <div className="form-group">
-                                <label>Địa chỉ (bắt buộc) </label>
+                                <label>Địa chỉ <font color="red">*</font> </label>
                                 <input
                                     type="text"
                                     name="address"
@@ -326,20 +332,20 @@ class OldCustomer extends Component {
                             </div>
                             {/* Thời gian (input) */}
                             <div className="form-group">
-                                <label>Ngày (bắt buộc)</label>
-                                <select
+                                <label>Ngày <font color="red">*</font></label>
+                                <input
+                                    type="date"
                                     className="form-control"
                                     name="day"
                                     value={this.state.day}
-                                    onChange={this.onChange}>
-                                    {availableDay}
-                                </select>
+                                    onChange={this.onChange}/>
+                                    
                             </div>
                         </div>
                         <div className="col-md-6">
                             {/* Số điện thoại (input) */}
                             <div className="form-group">
-                                <label>Số điện thoại (bắt buộc)</label>
+                                <label>Số điện thoại <font color="red">*</font></label>
                                 <input
                                     type="text"
                                     name="phoneNumber"
@@ -350,7 +356,7 @@ class OldCustomer extends Component {
                                     onChange={this.onChange} />
                             </div>
                             <div className="form-group">
-                                <label>Giới tính (bắt buộc)</label>
+                                <label>Giới tính <font color="red">*</font></label>
                                 <select
                                     className="form-control"
                                     name="gender"
@@ -363,7 +369,7 @@ class OldCustomer extends Component {
 
                             {/* Session (select) */}
                             <div className="form-group">
-                                <label>Phiên (bắt buộc)</label>
+                                <label>Phiên <font color="red">*</font></label>
                                 <select
                                     className="form-control"
                                     name="session"
@@ -376,7 +382,7 @@ class OldCustomer extends Component {
                         </div>
                         <div className="form-group">
                             <div className="col-md-12">
-                                <label>Triệu chứng (bắt buộc)</label>
+                                <label>Triệu chứng <font color="red">*</font></label>
                                     <textarea
                                         type="text"
                                         name="problem"
