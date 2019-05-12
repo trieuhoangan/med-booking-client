@@ -431,7 +431,7 @@ class NewBooking extends Component {
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group">
-                                            <label>Triệu chứng <font color="red">*</font></label>
+                                            <label>Triệu chứng</label>
                                                 <textarea
                                                     type="text"
                                                     name="problem"

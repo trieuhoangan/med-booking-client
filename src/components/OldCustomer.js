@@ -382,7 +382,7 @@ class OldCustomer extends Component {
                         </div>
                         <div className="form-group">
                             <div className="col-md-12">
-                                <label>Triệu chứng <font color="red">*</font></label>
+                                <label>Triệu chứng</label>
                                     <textarea
                                         type="text"
                                         name="problem"
