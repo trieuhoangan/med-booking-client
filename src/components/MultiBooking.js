@@ -339,7 +339,7 @@ class MultiBooking extends Component {
                                                 onChange={this.onChange} />
                                         </div>
                                         <div className="form-group">
-                                            <label>Ngày</label>
+                                            <label>Ngày <font color="red">*</font> </label>
                                             <input
                                                 type="date"
                                                 className="form-control"
@@ -360,7 +360,7 @@ class MultiBooking extends Component {
                                                 onChange={this.onChange} />
                                         </div>
                                         <div className="form-group">
-                                            <label>Số lượng : </label>
+                                            <label>Số lượng <font color="red">*</font> </label>
                                             <input
                                                 type="text"
                                                 name="number"
