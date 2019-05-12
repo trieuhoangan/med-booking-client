@@ -15,7 +15,7 @@ class MultiBooking extends Component {
             name: '',
             phoneNumber: '',
             day: '',
-            session:'morning',
+            session:'',
             status: 'waiting',
             number:'',
             morningFreeCase:0,
@@ -122,7 +122,8 @@ class MultiBooking extends Component {
                 name: this.state.name,
                 phoneNumber: this.state.phoneNumber,
                 day: this.state.day,
-                number:this.state.number
+                number:this.state.number,
+                session:this.state.session
             }
             axios
                 .post(
@@ -140,7 +141,7 @@ class MultiBooking extends Component {
                             isdisabled:false
                         })
                     } else if(response.data.status === "overload"){
-                        alert("Ngày không đủ để đăng ký, xin chọn lại ngày khác, xin cảm ơn !")
+                        alert("Phiên không đủ ca để đăng ký, xin chọn lại ngày khác, xin cảm ơn !")
                         this.setState({
                             isdisabled:false
                         })
@@ -427,6 +428,17 @@ class MultiBooking extends Component {
                                                 value={this.state.afternoonFreeCase}
                                                 />
                                         </div>
+                                        <div className="form-group">
+                                            <label>Phiên <font color="red">*</font></label>
+                                            <select
+                                                className="form-control"
+                                                name="session"
+                                                value={this.state.session}
+                                                onChange={this.onChange}>
+                                                <option value="morning">Buổi sáng</option>
+                                                <option value="afternoon">Buổi chiều</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     
                                     
@@ -439,6 +451,7 @@ class MultiBooking extends Component {
                                                 || !this.state.phoneNumber
                                                 || !this.state.day
                                                 || !this.state.address
+                                                || !this.state.session
                                                 || this.state.isdisable
                                                 }
                                             >
