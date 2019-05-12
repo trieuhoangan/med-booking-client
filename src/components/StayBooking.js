@@ -157,7 +157,9 @@ class StayBooking extends Component {
                 } else if(response.data.status==="cant"){
                     alert("Ngày " + response.data.code+" không còn chỗ trống");
                     
-                } 
+                } else if(response.data.status === "old day"){
+                    alert("Ngày không khả dụng")
+                }
                 else {
                     alert("Lỗi!");
                 }

@@ -159,6 +159,8 @@ class NewBooking extends Component {
                     this.onClearForm();
                 } else if(response.data.status === "wrong day") {
                     alert("Ngày không hợp lệ, xin chọn ngày khác");
+                } else if(response.data.status === "session is not available") {
+                    alert("Ngày không hợp lệ, xin chọn ngày khác");
                 }
                 else {
                     alert("Lỗi!");

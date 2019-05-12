@@ -18,7 +18,8 @@ class MultiBooking extends Component {
             session:'morning',
             status: 'waiting',
             number:'',
-            freeCase:0,
+            morningFreeCase:0,
+            afternoonFreeCase:0,
             day_object: [],
         }
     }
@@ -72,10 +73,13 @@ class MultiBooking extends Component {
             )
             .then(response => {
                 console.log(response)
-                var free;
-                free = response.data.afternoonMaxCase + response.data.morningMaxCase - response.data.afternoonCase - response.data.morningCase
+                var morningfree;
+                var afternoonFree;
+                morningfree =  response.data.morningMaxCase  - response.data.morningCase
+                afternoonFree = response.data.afternoonMaxCase - response.data.afternoonCase
                 this.setState({
-                    freeCase:free
+                    morningFreeCase:morningfree,
+                    afternoonFreeCase:afternoonFree
                 })
             })
             .catch(function (error) {
@@ -127,6 +131,8 @@ class MultiBooking extends Component {
                         this.onClearForm();
                     } else if(response.data.status === "overload"){
                         alert("Ngày không đủ để đăng ký, xin chọn lại ngày khác, xin cảm ơn !")
+                    }else if(response.data.status === "old day"){
+                        alert("Ngày không khả dụng")
                     }
                     else {
                         alert("Lỗi!");
@@ -383,13 +389,23 @@ class MultiBooking extends Component {
 
                                         {/* Session (select) */}
                                         <div className="form-group">
-                                            <label>Số buổi còn trống : </label>
+                                            <label>Số buổi sáng còn trống : </label>
                                             <input
                                                 type="text"
-                                                name="freeCase"
+                                                name="morningFreeCase"
                                                 className="form-control"
                                                 disabled={true}
-                                                value={this.state.freeCase}
+                                                value={this.state.morningFreeCase}
+                                                />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Số buổi chiều còn trống : </label>
+                                            <input
+                                                type="text"
+                                                name="afternoonFreeCase"
+                                                className="form-control"
+                                                disabled={true}
+                                                value={this.state.afternoonFreeCase}
                                                 />
                                         </div>
                                     </div>
