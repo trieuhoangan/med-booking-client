@@ -419,7 +419,7 @@ class MultiBooking extends Component {
                                             disabled={!this.state.name
                                                 || !this.state.phoneNumber
                                                 || !this.state.day
-                                                // || !this.state.session
+                                                || !this.state.address
                                                 // || (this.state.stayCheck === false)
                                                 }
                                             >

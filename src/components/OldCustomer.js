@@ -96,7 +96,7 @@ class OldCustomer extends Component {
     }
     onSubmitCustom = (event) =>{
         event.preventDefault();
-        if(this.state.phoneNumber.length<10||this.state.phoneNumber.length>11){
+        if(this.state.customerPhonenumber.length<10||this.state.customerPhonenumber.length>11){
             alert("số điện thoại không phù hợp")
         }else{
         var body_data={
