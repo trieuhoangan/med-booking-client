@@ -539,6 +539,7 @@ class AppointmentDetail extends Component {
                                             <option value="waiting"> waiting</option>    
                                             <option value="done"> done</option>
                                             <option value="canceled"> canceled</option>  
+                                            <option value="canceled"> stay</option>  
                                         </select>
                                     <br/>
                                 <label>Code : {this.state.code}</label>

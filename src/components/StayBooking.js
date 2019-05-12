@@ -29,6 +29,7 @@ class StayBooking extends Component {
             address:'',
             // stayCheck: false,
             day_object: [],
+            isdisable:false
         }
     }
 
@@ -119,9 +120,15 @@ class StayBooking extends Component {
 
     onSubmit = (event) => {
         //chặn submit lên url
+        this.setState({
+            isdisabled:true
+        })
         event.preventDefault();
         if(this.state.phoneNumber.length<10||this.state.phoneNumber.length>11){
             alert("số điện thoại không phù hợp")
+            this.setState({
+                isdisabled:false
+            })
         }else{
         
         var form_object=  {
@@ -154,14 +161,25 @@ class StayBooking extends Component {
                 if (response.data.status === "good") {
                     alert("đặt thành công buổi hẹn! Mã xác thực là " + response.data.code);
                     this.onClearForm();
+                    this.setState({
+                        isdisabled:false
+                    })
                 } else if(response.data.status==="cant"){
                     alert("Ngày " + response.data.code+" không còn chỗ trống");
-                    
+                    this.setState({
+                        isdisabled:false
+                    })
                 } else if(response.data.status === "old day"){
                     alert("Ngày không khả dụng")
+                    this.setState({
+                        isdisabled:false
+                    })
                 }
                 else {
                     alert("Lỗi!");
+                    this.setState({
+                        isdisabled:false
+                    })
                 }
             })
             .catch(function (error) {
@@ -457,6 +475,7 @@ class StayBooking extends Component {
                                                 || !this.state.phoneNumber
                                                 || !this.state.begin
                                                 || !this.state.end
+                                                || this.state.isdisable
                                                 }
                                             >
                                             <span className="fa fa-check mr-5"></span>

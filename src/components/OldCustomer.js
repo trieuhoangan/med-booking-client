@@ -80,6 +80,7 @@ class OldCustomer extends Component {
             home:'',
             // stayCheck: false,
             day_object: [],
+            isdisable:false
         })
     }
 
@@ -133,9 +134,15 @@ class OldCustomer extends Component {
 
     onSubmit = (event) => {
         //chặn submit lên url
+        this.setState({
+            isdisabled:true
+        })
         event.preventDefault();
         if(this.state.phoneNumber.length<10||this.state.phoneNumber.length>11){
             alert("số điện thoại không phù hợp")
+            this.setState({
+                isdisabled:false
+            })
         }else{
         var form_object=  {
             id: '',
@@ -166,9 +173,15 @@ class OldCustomer extends Component {
             .then(response => {
                 if (response.data.status === "good") {
                     alert("đặt thành công buổi hẹn! Mã xác thực là " + response.data.code);
+                    this.setState({
+                        isdisabled:false
+                    })
                     this.onClearForm();
                 } else {
                     alert("Lỗi!");
+                    this.setState({
+                        isdisabled:false
+                    })
                 }
             })
             .catch(function (error) {
@@ -402,7 +415,7 @@ class OldCustomer extends Component {
                                     || !this.state.phoneNumber
                                     || !this.state.day
                                     || !this.state.session
-                                    // || (this.state.stayCheck === false)
+                                    || this.state.isdisable
                                     }
                                 >
                                 <span className="fa fa-check mr-5"></span>

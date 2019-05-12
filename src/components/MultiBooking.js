@@ -21,6 +21,7 @@ class MultiBooking extends Component {
             morningFreeCase:0,
             afternoonFreeCase:0,
             day_object: [],
+            isdisable:false
         }
     }
 
@@ -105,9 +106,15 @@ class MultiBooking extends Component {
 
     onSubmit = (event) => {
         //chặn submit lên url
+        this.setState({
+            isdisabled:true
+        })
         event.preventDefault();
         if(this.state.phoneNumber.length<10||this.state.phoneNumber.length>11){
             alert("số điện thoại không phù hợp")
+            this.setState({
+                isdisabled:false
+            })
         }else{
            
             var wrapper=  {
@@ -129,13 +136,25 @@ class MultiBooking extends Component {
                     if (response.data.status === "good") {
                         alert("đặt thành công buổi hẹn! Mã xác thực là " + response.data.code);
                         this.onClearForm();
+                        this.setState({
+                            isdisabled:false
+                        })
                     } else if(response.data.status === "overload"){
                         alert("Ngày không đủ để đăng ký, xin chọn lại ngày khác, xin cảm ơn !")
+                        this.setState({
+                            isdisabled:false
+                        })
                     }else if(response.data.status === "old day"){
                         alert("Ngày không khả dụng")
+                        this.setState({
+                            isdisabled:false
+                        })
                     }
                     else {
                         alert("Lỗi!");
+                        this.setState({
+                            isdisabled:false
+                        })
                     }
                 })
                 .catch(function (error) {
@@ -420,7 +439,7 @@ class MultiBooking extends Component {
                                                 || !this.state.phoneNumber
                                                 || !this.state.day
                                                 || !this.state.address
-                                                // || (this.state.stayCheck === false)
+                                                || this.state.isdisable
                                                 }
                                             >
                                             <span className="fa fa-check mr-5"></span>
