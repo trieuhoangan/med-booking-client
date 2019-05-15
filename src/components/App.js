@@ -18,6 +18,7 @@ import CalendarManager from './Administrator/CalendarManager';
 import CustomerResult from './CustomerResult';
 import MultiBooking from './MultiBooking';
 import OldCustomer from './OldCustomer';
+import Kappa from './Administrator/Kappa';
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
         localStorage.getItem('token') !== null
@@ -127,6 +128,9 @@ class App extends Component {
                             <PrivateRoute 
                                 path='/CalendarManager' 
                                 component={CalendarManager} />
+                            <Route 
+                                path='/Kappa' 
+                                component={Kappa} />
 
                         </Switch>
                     </BrowserRouter>
