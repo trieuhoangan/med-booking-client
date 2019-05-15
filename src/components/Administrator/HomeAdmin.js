@@ -21,6 +21,7 @@ class HomeAdmin extends Component {
             filterDay: '',
             filterSession: '',
             filterStatus: '',
+            filterType:''
         }
     }
 
@@ -368,10 +369,11 @@ class HomeAdmin extends Component {
                                 <tr>
                                     <th className="text-center">STT</th>
                                     <th className="text-center">Họ Tên</th>
-                                    <th className="text-center">Số đt</th>
+                                    <th className="text-center">Số điện thoại</th>
                                     <th className="text-center">Ngày</th>
-                                    <th className="text-center">Sesstion</th>
-                                    <th className="text-center">Status</th>
+                                    <th className="text-center">Phiên</th>
+                                    <th className="text-center">Trạng thái</th>
+                                    <th className="text-center">Loại đăng ký</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -404,7 +406,7 @@ class HomeAdmin extends Component {
                                             onChange={this.onChange}
                                             />
                                     </td>
-                                    <td style={{width:"18%"}}>
+                                    <td style={{width:"12%"}}>
                                     <input 
                                             type="text" 
                                             className="form-control"
@@ -413,12 +415,21 @@ class HomeAdmin extends Component {
                                             onChange={this.onChange}
                                             />
                                     </td>
-                                    <td style={{width:"18%"}}>
+                                    <td style={{width:"12%"}}>
                                     <input 
                                             type="text" 
                                             className="form-control"
                                             name="filterStatus" 
                                             value={this.state.filterStatus}
+                                            onChange={this.onChange}
+                                            />
+                                    </td>
+                                    <td style={{width:"12%"}}>
+                                    <input 
+                                            type="text" 
+                                            className="form-control"
+                                            name="filterType" 
+                                            value={this.state.filterType}
                                             onChange={this.onChange}
                                             />
                                     </td>

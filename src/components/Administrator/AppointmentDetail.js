@@ -26,7 +26,8 @@ class AppointmentDetail extends Component {
             day_object: [],
             customerSession:'',
             customerGender:'',
-            customerStay:''
+            customerStay:'',
+            type:""
         }
     }
 
@@ -77,7 +78,8 @@ class AppointmentDetail extends Component {
                         end:response.data.end,
                         problem:response.data.problem,
                         result:response.data.result,
-                        gender:response.data.gender
+                        gender:response.data.gender,
+                        type:response.data.type
                     })
                     if(response.data.gender==="male"){
                         this.setState({customerGender:"nam"})
@@ -166,6 +168,9 @@ class AppointmentDetail extends Component {
             .then(response => {
                 if(response.data==="success"){
                     alert("Hủy hẹn thành công!")
+                    this.setState({
+                        status:"canceled"
+                    })
                 }
                 else{
                     alert("Lỗi!")
@@ -405,6 +410,19 @@ class AppointmentDetail extends Component {
                                         />
                                         
                                 </div>
+                                <div className="form-group">
+                                            <label>Loại đăng ký</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                name="day"
+                                                disabled={true}
+                                                value={this.state.type}
+                                                onChange={this.onChange} />
+                                                
+                                            
+                                        </div>
+                                       
                             </div>
                             <div className="col-md-6">
                                 {/* Số điện thoại (input) */}
@@ -560,15 +578,18 @@ class AppointmentDetail extends Component {
                             <div className="col-md-6">                                  
                                 {/* Họ Tên (input) */}
                                 <div className="form-group">
-                                    <label>Họ và tên : {this.state.name}</label>
+                                    <label>Họ và tên: {this.state.name}</label>
                                     
                                 </div>
                                 <div className="form-group">
-                                    <label>Địa chỉ : {this.state.address} </label>
+                                    <label>Địa chỉ: {this.state.address} </label>
                                 </div>
                                 {/* Thời gian (input) */}
                                 <div className="form-group">
-                                    <label>Ngày : {this.state.day}</label>
+                                    <label>Ngày: {this.state.day}</label>
+                                </div>
+                                <div className="form-group">
+                                    <label>Loại đăng ký: {this.state.type}</label>
                                 </div>
                             </div>
                             <div className="col-md-6">
@@ -654,7 +675,7 @@ class AppointmentDetail extends Component {
                             &nbsp;
                             {deleteButton}
                             </div>                        
-                                
+                        
                         </form>
                     </div>
         }

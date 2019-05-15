@@ -30,6 +30,8 @@ class NewBooking extends Component {
             // stayCheck: false,
             isdisabled : false,
             day_object: [],
+            freeMorning:0,
+            freeAfternoon:0
         }
     }
 
@@ -69,10 +71,35 @@ class NewBooking extends Component {
         this.setState({
             [name]: value
         })
+        if(name ==='day'){
+            // console.log(value)
+            axios
+            .post(
+                this.state.domain + "/get_day_detail",
+                {day:value},
+                {
+                    headers: { "content-type": "application/json", }
+                }
+            )
+            .then(response => {
+                console.log(response)
+                var morningfree;
+                var afternoonFree;
+                morningfree =  response.data.morningMaxCase  - response.data.morningCase
+                afternoonFree = response.data.afternoonMaxCase - response.data.afternoonCase
+                this.setState({
+                    freeMorning:morningfree,
+                    freeAfternoon:afternoonFree
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         this.stayCheck(); 
         localStorage.setItem('stay',this.state.stay)
         console.log(this.state.stay)
         console.log(this.state.stayCheck)
+        }
     }
 
     onClearForm = () => {
@@ -411,6 +438,29 @@ class NewBooking extends Component {
                                                 
                                             
                                         </div>
+                                        <div className="form-group">
+                                            <label>Số ca trống buổi sáng: </label>
+                                            <input
+                                                disabled={true}
+                                                className="form-control"
+                                                
+                                                value={this.state.freeMorning}
+                                                />
+                                                
+                                            
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Số ca trống buổi chiều: </label>
+                                            <input
+                                                disabled={true}
+                                                className="form-control"
+                                                
+                                                value={this.state.freeAfternoon}
+                                                 />
+                                                
+                                            
+                                        </div>
+                                        
                                     </div>
                                     <div className="col-md-6">
                                         {/* Số điện thoại (input) */}
@@ -470,8 +520,7 @@ class NewBooking extends Component {
                                             disabled={!this.state.name
                                                 || !this.state.phoneNumber
                                                 || !this.state.day
-                                                || !this.state.gender
-                                                || !this.state.session
+                                                // || !this.state.session
                                                 || this.state.isdisabled
                                                 }
                                             >

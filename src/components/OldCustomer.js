@@ -31,6 +31,8 @@ class OldCustomer extends Component {
             home:'',
             problem:'',
             address:'',
+            freeMorning:0,
+            freeAfternoon:0
         }
  
     }
@@ -93,7 +95,32 @@ class OldCustomer extends Component {
         this.setState({
             [name]: value
         })
-        console.log(name + " - " + value);
+        if(name ==='day'){
+            // console.log(value)
+            axios
+            .post(
+                this.state.domain + "/get_day_detail",
+                {day:value},
+                {
+                    headers: { "content-type": "application/json", }
+                }
+            )
+            .then(response => {
+                console.log(response)
+                var morningfree;
+                var afternoonFree;
+                morningfree =  response.data.morningMaxCase  - response.data.morningCase
+                afternoonFree = response.data.afternoonMaxCase - response.data.afternoonCase
+                this.setState({
+                    freeMorning:morningfree,
+                    freeAfternoon:afternoonFree
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+        
     }
     onSubmitCustom = (event) =>{
         event.preventDefault();
@@ -354,6 +381,28 @@ class OldCustomer extends Component {
                                     onChange={this.onChange}/>
                                     
                             </div>
+                            <div className="form-group">
+                                <label>Số ca trống buổi sáng: </label>
+                                <input
+                                    disabled={true}
+                                    className="form-control"
+                                    
+                                    value={this.state.freeMorning}
+                                    />
+                                    
+                                
+                            </div>
+                            <div className="form-group">
+                                <label>Số ca trống buổi chiều: </label>
+                                <input
+                                    disabled={true}
+                                    className="form-control"
+                                    
+                                    value={this.state.freeAfternoon}
+                                        />
+                                    
+                                
+                            </div>
                         </div>
                         <div className="col-md-6">
                             {/* Số điện thoại (input) */}
@@ -414,7 +463,7 @@ class OldCustomer extends Component {
                                 disabled={!this.state.name
                                     || !this.state.phoneNumber
                                     || !this.state.day
-                                    || !this.state.session
+                                    // || !this.state.session
                                     || this.state.isdisable
                                     }
                                 >

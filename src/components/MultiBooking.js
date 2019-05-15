@@ -451,7 +451,7 @@ class MultiBooking extends Component {
                                                 || !this.state.phoneNumber
                                                 || !this.state.day
                                                 || !this.state.address
-                                                || !this.state.session
+                                                // || !this.state.session
                                                 || this.state.isdisable
                                                 }
                                             >

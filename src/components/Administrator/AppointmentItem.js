@@ -41,11 +41,12 @@ class AppointmentItem extends Component {
                 <td style={{width:"20%"}}>{form_object.day}</td>
 
                 {/* Status */}
-                <td style={{width:"20%"}}>{form_object.session}</td>
+                <td style={{width:"13%"}}>{form_object.session}</td>
 
                 {/* Session */}
-                <td style={{width:"20%"}}>{form_object.status}</td>
+                <td style={{width:"13%"}}>{form_object.status}</td>
                 
+                <td style={{width:"13%"}}>{form_object.type}</td>
                 {/* Các button chức năng */}
                 <td className="text-center">
                     <Link to='/AppointmentDetail'>
