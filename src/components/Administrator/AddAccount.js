@@ -176,6 +176,14 @@ class CancelBooking extends Component {
                         <li>
                             {homeAppointmentSession}
                         </li>
+                        <li>
+                            <Link to="/Kappa">
+                                <em className="fa fa-dashboard">
+                                    &nbsp;
+                                </em>
+                                Thống kê
+                            </Link>
+                        </li>
                         <li className="active">
                             <Link to="/AddAccount">
                                 <em className="fa fa-dashboard">

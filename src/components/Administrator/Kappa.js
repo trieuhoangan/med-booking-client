@@ -12,107 +12,69 @@ class Kappa extends Component {
         this.state = {
             token: localStorage.getItem('token'),
             domain: 'http://localhost:8080',
-            form_object: [],
-            data:[],
-            activePage:1,
-            TotalPage:0,
-            filterName: '',
-            filterPhoneNum: '',
+            filterMonth: '',
+            filterYear: '',
             filterDay: '',
-            filterSession: '',
-            filterStatus: '',
-            filterType:''
+            sum_form: 0,
+            morning_form: 0,
+            afternoon_form: 0,
+            canceled_form: 0,
         }
     }
 
-    getAPICheckOneApointment = () => {
-        axios
-            .post(
-                this.state.domain + "/admin/check_one_appointment",
-                {
-                    id: 1,
-                },
-                {
-                    headers: { 
-                        "Authorization": this.state.token,
-                        "content-type": "application/json", }
-                }
-            )
-            .then(response => {
-                if (response.data.form_object !== null) {
-                    this.setState({
-                        form_object: response.data.form_object,
-                    })
-                } else {
-                    alert("Lỗi!");
-                }
-                //console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        // localStorage.removeItem("appointmentId");
-    }
     getFilter=()=>{
-        var field = []
-        var value = []
-        if(this.state.filterName!==""){
-            field.push('name')
-            value.push(this.state.filterName)
+        var field=[]
+        var value=[]
+        var month="" 
+        if(this.state.filterMonth.length===1){
+            month="0"+this.state.filterMonth
         }
-        if(this.state.filterPhoneNum!==""){
-            field.push('phoneNumber')
-            value.push(this.state.filterPhoneNum)
+        else{
+            month = this.state.filterMonth
         }
-        if(this.state.filterDay!==""){
-            field.push('day')
-            value.push(this.state.filterDay)
+        var date = this.state.filterYear+"-"+month;
+        
+        if(this.state.day!==""){
+            date= date+"-"+ this.state.filterDay
         }
-        if(this.state.filterSession!==""){
-            field.push('session')
-            value.push(this.state.filterSession)
-        }
-        if(this.state.filterStatus!==""){
-            field.push('status')
-            value.push(this.state.filterStatus)
-        }
-        this.setState({
-            activePage:1
-        })
+        field.push("day")
+        value.push(date)
         var body_data={
             field:field,
             value:value,
-            pageNumber:this.state.activePage,
+            pageNumber:1,
             numberForm:'15'
         }
-        // console.log(body_data)
-        if(field.length>0){
-            axios
-            .post(
-                this.state.domain + "/admin/form_filter",
-                body_data,
-                {
-                    headers: { 
-                        "Authorization": this.state.token,
-                        "content-type": "application/json", }
-                }
-            )
-            .then(response => {
-                this.setState({
-                    form_object: response.data.list,
-                    TotalPage: response.data.numberPage
-                    
-                })
-                // console.log(response.data);
-                this.data = response.data.list;
+        console.log(body_data)
+       
+        axios
+        .post(
+            this.state.domain + "/admin/kappa",
+            body_data,
+            {
+                headers: { 
+                    "Authorization": this.state.token,
+                    "content-type": "application/json", }
+            }
+        )
+        .then(response => {
+            this.setState({
+                sum_form:response.data.totalForm,
+                morning_form: response.data.morningForm,
+                afternoon_form: response.data.afternoonForm,
+                canceled_form: response.data.canceledForm,
+                
             })
-            .catch(function (error) {
-                console.log(error);
-            });
-        }
-        else{
-            this.getAPICheckAllAppointment()
-        }
+            console.log(response.data);
+            // this.data = response.data.list;
+
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    
+        
     }
     onChange = (event) => {
         var target = event.target;
@@ -122,39 +84,12 @@ class Kappa extends Component {
             [name]: value
         });
     }
-    getAPICheckAllAppointment = () => {
-        var body_data=  {
-            pageNumber: "1",
-            numberOfForm: "15",
-        }
-        axios
-            .post(
-                this.state.domain + "/admin/check_all_appointment",
-                body_data,
-                {
-                    headers: { 
-                        "Authorization": this.state.token,
-                        "content-type": "application/json", }
-                }
-            )
-            .then(response => {
-                this.setState({
-                    form_object: response.data.list,
-                    TotalPage: response.data.numberPage
-                    
-                })
-                // console.log(response.data);
-                this.data = response.data.list;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
+
 
 
     componentWillMount() {
-        this.getAPICheckAllAppointment();
-        // this.getAPICheckOneApointment();
+       
+       
     }
 
     // xóa token và đăng xuất
@@ -162,96 +97,10 @@ class Kappa extends Component {
         // console.log(localStorage.getItem("token"));
         localStorage.removeItem("token");
     }
-    //phân trang
-    handlePageChange=(pageNumber)=>{
-        // alert( pageNumber);
-        // kiểm tra xem có đang lọc thông tin hay không
-        var field = []
-        var value = []
-        if(this.state.filterName!==""){
-            field.push('name')
-            value.push(this.state.filterName)
-        }
-        if(this.state.filterPhoneNum!==""){
-            field.push('phoneNumber')
-            value.push(this.state.filterPhoneNum)
-        }
-        if(this.state.filterDay!==""){
-            field.push('day')
-            value.push(this.state.filterDay)
-        }
-        if(this.state.filterSession!==""){
-            field.push('session')
-            value.push(this.state.filterSession)
-        }
-        if(this.state.filterStatus!==""){
-            field.push('status')
-            value.push(this.state.filterStatus)
-        }
-        //nếu đang lọc
-        if(field.length>0){
-            var body_data={
-                field:field,
-                value:value,
-                pageNumber:pageNumber,
-                numberForm:'15'
-            }
-            axios
-            .post(
-                this.state.domain + "/admin/form_filter",
-                body_data,
-                {
-                    headers: { 
-                        "Authorization": this.state.token,
-                        "content-type": "application/json", }
-                }
-            )
-            .then(response => {
-                this.setState({
-                    form_object: response.data.list,
-                    TotalPage: response.data.numberPage,
-                    activePage:pageNumber
-                })
-                // console.log(response.data);
-                this.data = response.data.list;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        }
-        //nếu không lọc
-        else{
-            var body_data=  {
-                pageNumber: pageNumber,
-                numberOfForm: "15",
-            }
-            axios
-                .post(
-                    this.state.domain + "/admin/check_all_appointment",
-                    body_data,
-                    {
-                        headers: { 
-                            "Authorization": this.state.token,
-                            "content-type": "application/json", }
-                    }
-                )
-                .then(response => {
-                    this.setState({
-                        form_object: response.data.list,
-                        activePage:pageNumber
-                    })
-                    // console.log(response.data);
-                    this.data = response.data.list;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }
-    }
     
     //render
     render() {
-        var {form_object} = this.state;
+      
         var dashboard;
         if (localStorage.getItem('token') !== null) {
             dashboard = <Link to="/HomeAdmin">
@@ -274,7 +123,7 @@ class Kappa extends Component {
                 <div id="sidebar-collapse" className="col-sm-3 col-lg-2 sidebar">
                     <div className="divider"></div>
                     <ul className="nav menu">
-                        <li className="active">
+                        <li>
                             {dashboard}
                         </li>
                         <li>
@@ -325,6 +174,14 @@ class Kappa extends Component {
                                 Quản lý phiên
                             </Link>
                         </li>
+                        <li className="active">
+                            <Link to="/Kappa">
+                                <em className="fa fa-dashboard">
+                                    &nbsp;
+                                </em>
+                                Thống kê
+                            </Link>
+                        </li>
                         <li>
                             <Link to="/AddAccount">
                                 <em className="fa fa-dashboard">
@@ -370,9 +227,9 @@ class Kappa extends Component {
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th className="text-center">Ngày</th>
-                                    <th className="text-center">Tháng</th>
-                                    <th className="text-center">Năm</th>
+                                    <th className="text-center">Ngày </th>
+                                    <th className="text-center">Tháng<font color="red">*</font></th>
+                                    <th className="text-center">Năm<font color="red">*</font></th>
                                     
                                 </tr>
                             </thead>
@@ -385,7 +242,7 @@ class Kappa extends Component {
                                         <input 
                                             type="text" 
                                             className="form-control"
-                                            name="filterName" 
+                                            name="filterDay" 
                                             value={this.state.filterName}
                                             onChange={this.onChange}
                                             />
@@ -394,8 +251,8 @@ class Kappa extends Component {
                                     <input 
                                             type="text" 
                                             className="form-control"
-                                            name="filterPhoneNum" 
-                                            value={this.state.filterPhoneNum}
+                                            name="filterMonth" 
+                                            value={this.state.filterMonth}
                                             onChange={this.onChange}
                                             />
                                     </td>
@@ -403,8 +260,8 @@ class Kappa extends Component {
                                     <input 
                                             type="text" 
                                             className="form-control"
-                                            name="filterDay" 
-                                            value={this.state.filterDay}
+                                            name="filterYear" 
+                                            value={this.state.filterYear}
                                             onChange={this.onChange}
                                             />
                                     </td>
@@ -415,6 +272,7 @@ class Kappa extends Component {
                                         <button
                                             className="btn btn-primary"
                                             type="submit"
+                                            disabled={!this.state.filterMonth||!this.state.filterYear}
                                             onClick={this.getFilter}
                                         >
                                             search
@@ -425,10 +283,51 @@ class Kappa extends Component {
                             </tbody>
                             
                         </table>
-                        <p>   tìm thấy {this.state.TotalPage} kết quả</p> 
-                        <AppointmentList
-                            form_object={form_object}
-                            onDetail={this.onDetail} />
+                        <div class="panel panel-container">
+                            <div class="row">
+                                <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                                    <div class="panel panel-teal panel-widget border-right">
+                                        <div class="row no-padding"><em class="fa fa-xl fa-comments color-blue"></em>
+                                            <div class="large">
+                                                {this.state.sum_form}
+                                            </div>
+                                            <div class="text-muted">Tổng số lịch hẹn</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                                    <div class="panel panel-blue panel-widget border-right">
+                                        <div class="row no-padding"><em class="fa fa-xl fa-comments color-orange"></em>
+                                            <div class="large">
+                                                {this.state.morning_form}
+                                            </div>
+                                            <div class="text-muted">Số lịch hẹn vào buổi sáng</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                                    <div class="panel panel-orange panel-widget border-right">
+                                        <div class="row no-padding"><em class="fa fa-xl fa-comments color-teal"></em>
+                                            <div class="large">
+                                                {this.state.afternoon_form}
+                                            </div>
+                                            <div class="text-muted">Số lịch hẹn vào buổi chiều</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                                    <div class="panel panel-red panel-widget ">
+                                        <div class="row no-padding"><em class="fa fa-xl fa-comments color-red"></em>
+                                            <div class="large">
+                                                {this.state.canceled_form}
+                                            </div>
+                                            <div class="text-muted">Số lịch hẹn vào bị hủy</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                    
                    

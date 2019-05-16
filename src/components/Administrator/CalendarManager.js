@@ -195,6 +195,14 @@ class CalendarManager extends Component {
                         </Link>
                     </li>
                     <li>
+                            <Link to="/Kappa">
+                                <em className="fa fa-dashboard">
+                                    &nbsp;
+                                </em>
+                                Thống kê
+                            </Link>
+                        </li>
+                    <li>
                         <Link to="/AddAccount">
                             <em className="fa fa-dashboard">
                                 &nbsp;

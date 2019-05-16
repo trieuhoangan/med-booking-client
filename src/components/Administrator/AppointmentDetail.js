@@ -737,6 +737,14 @@ class AppointmentDetail extends Component {
                             {homeAppointmentSession}
                         </li>
                         <li>
+                            <Link to="/Kappa">
+                                <em className="fa fa-dashboard">
+                                    &nbsp;
+                                </em>
+                                Thống kê
+                            </Link>
+                        </li>
+                        <li>
                             {addAccount}
                         </li>
                         <li>
