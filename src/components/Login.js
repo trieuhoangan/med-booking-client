@@ -43,7 +43,7 @@ class Login extends Component {
             )
             .then(response => {
                 if (response.data.token === null) {
-                    // alert("Tài khoản hoặc mật khẩu không đúng");
+                    alert("Tài khoản hoặc mật khẩu không đúng");
                     // localStorage.setItem("token", JSON.stringify("lfkjajhdjfahkjdshf"));
                 } else {
                     //Login thành công
