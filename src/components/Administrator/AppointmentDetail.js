@@ -208,8 +208,11 @@ class AppointmentDetail extends Component {
                 .post(
                     this.state.domain + "/admin/update_appointment",
                     form_object,
-                    {
-                        headers: { "content-type": "application/json", }
+                    {   
+                        
+                        headers: { 
+                        "content-type": "application/json",
+                        "Authorization": this.state.token, }
                     }
                 )
                 .then(response => {
@@ -292,7 +295,8 @@ class AppointmentDetail extends Component {
                                         || !this.state.day
                                         || !this.state.session
                                         // || (this.state.stayCheck === false)
-                                        }
+                                       
+                                    }
                                     >
                                     <span className="fa fa-check mr-5"></span>
                                     Xác nhận
