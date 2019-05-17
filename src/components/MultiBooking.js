@@ -15,7 +15,7 @@ class MultiBooking extends Component {
             name: '',
             phoneNumber: '',
             day: '',
-            session:'',
+            session:'morning',
             status: 'waiting',
             number:'',
             morningFreeCase:0,

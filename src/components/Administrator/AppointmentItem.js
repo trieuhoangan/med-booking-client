@@ -29,7 +29,7 @@ class AppointmentItem extends Component {
             // bắt sự kiện Edit khi click vào từng dòng trong bảng
             <tr>    
                 {/* Số thứ tự */}
-                <td style={{width:"5%"}}>{form_object.id}</td>
+                <td style={{width:"10%"}}>{form_object.id}</td>
 
                 {/* Tên */}
                 <td style={{width:"21%"}}>{form_object.name}</td>

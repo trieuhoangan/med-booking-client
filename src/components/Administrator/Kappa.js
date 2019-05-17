@@ -25,6 +25,7 @@ class Kappa extends Component {
     getFilter=()=>{
         var field=[]
         var value=[]
+        var day = ""
         var month="" 
         if(this.state.filterMonth.length===1){
             month="0"+this.state.filterMonth
@@ -32,10 +33,16 @@ class Kappa extends Component {
         else{
             month = this.state.filterMonth
         }
+        if(this.state.filterDay.length===1){
+            day="0"+this.state.filterDay
+        }
+        else{
+            day = this.state.filterDay
+        }
         var date = this.state.filterYear+"-"+month;
         
         if(this.state.day!==""){
-            date= date+"-"+ this.state.filterDay
+            date= date+"-"+ day
         }
         field.push("day")
         value.push(date)

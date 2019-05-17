@@ -319,12 +319,13 @@ class CustomerResult extends Component {
                             <table className="table table-hover mt-15">
                                 <thead>
                                     <tr>
-                                        <th className="text-center">STT</th>
-                                        <th className="text-center">Họ Tên</th>
-                                        <th className="text-center">Số đt</th>
-                                        <th className="text-center">Ngày</th>
-                                        <th className="text-center">Sesstion</th>
-                                        <th className="text-center">Status</th>
+                                        <th className="text-center" >STT</th>
+                                        <th className="text-center"  style={{width:"12%"}}>Họ Tên</th>
+                                        <th className="text-center"  style={{width:"15%"}}>Số điện thoại</th>
+                                        <th className="text-center"  style={{width:"20%"}}>Ngày</th>
+                                        <th className="text-center" style={{width:"14%"}}>Phiên</th>
+                                        <th className="text-center" style={{width:"8%"}}>Trạng thái</th>
+                                        <th className="text-center">Loại đăng ký</th>
                                     </tr>
                                 </thead>
                             </table>  
