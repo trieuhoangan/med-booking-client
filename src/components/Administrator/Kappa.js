@@ -328,7 +328,7 @@ class Kappa extends Component {
                                             <div class="large">
                                                 {this.state.canceled_form}
                                             </div>
-                                            <div class="text-muted">Số lịch hẹn vào bị hủy</div>
+                                            <div class="text-muted">Số lịch hẹn bị hủy</div>
                                         </div>
                                     </div>
                                 </div>

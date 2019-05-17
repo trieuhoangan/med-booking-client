@@ -155,7 +155,7 @@ class AppointmentDetail extends Component {
     cancelAppointment = () =>{
         axios
             .post(
-                this.state.domain + "/admin/cancelAppointment",
+                this.state.domain + "/admin/cancel_one",
                 {
                     id: localStorage.getItem("appointmentId"),
                 },
@@ -166,7 +166,7 @@ class AppointmentDetail extends Component {
                 }
             )
             .then(response => {
-                if(response.data==="success"){
+                if(response.data.status==="success"){
                     alert("Hủy hẹn thành công!")
                     this.setState({
                         status:"canceled"

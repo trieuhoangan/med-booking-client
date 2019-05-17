@@ -17,6 +17,7 @@ class MultiBooking extends Component {
             day: '',
             session:'morning',
             status: 'waiting',
+            address:'',
             number:'',
             morningFreeCase:0,
             afternoonFreeCase:0,
@@ -123,7 +124,8 @@ class MultiBooking extends Component {
                 phoneNumber: this.state.phoneNumber,
                 day: this.state.day,
                 number:this.state.number,
-                session:this.state.session
+                session:this.state.session,
+                address:this.state.address
             }
             axios
                 .post(
