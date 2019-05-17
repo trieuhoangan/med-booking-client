@@ -229,6 +229,20 @@ class OldCustomer extends Component {
                     {day_object.day}
                 </option>
         });
+        var kappa;
+        if(localStorage.getItem('token')===null){
+            kappa=
+                    <Link to="/Kappa">
+                        <em className="fa fa-dashboard">
+                            &nbsp;
+                        </em>
+                        Thống kê
+                    </Link>
+                
+        }
+        else{
+            kappa=null
+        }
         var dashboard;
         if (localStorage.getItem('token') !== null) {
             dashboard = <Link to="/HomeAdmin">
@@ -531,6 +545,9 @@ class OldCustomer extends Component {
                         </li>
                         <li>
                             {homeAppointmentSession}
+                        </li>
+                        <li>
+                            {kappa}
                         </li>
                         <li>
                             {addAccount}

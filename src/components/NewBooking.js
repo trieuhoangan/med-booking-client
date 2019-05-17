@@ -298,7 +298,20 @@ class NewBooking extends Component {
                                 Đăng nhập (Admin only)
                             </Link>
         }
-        
+        var kappa;
+        if(localStorage.getItem('token')===null){
+            kappa=
+                    <Link to="/Kappa">
+                        <em className="fa fa-dashboard">
+                            &nbsp;
+                        </em>
+                        Thống kê
+                    </Link>
+                
+        }
+        else{
+            kappa=null
+        }
         var addAccount; 
         if (localStorage.getItem('token') !== null) {
             addAccount = 
@@ -367,6 +380,9 @@ class NewBooking extends Component {
                         </li>
                         <li>
                             {homeAppointmentSession}
+                        </li>
+                        <li>
+                            {kappa}
                         </li>
                         <li>
                             {addAccount}

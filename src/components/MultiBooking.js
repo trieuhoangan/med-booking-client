@@ -212,6 +212,20 @@ class MultiBooking extends Component {
         } else {
             homeAppointmentSession = null;
         }
+        var kappa;
+        if(localStorage.getItem('token')===null){
+            kappa=
+                    <Link to="/Kappa">
+                        <em className="fa fa-dashboard">
+                            &nbsp;
+                        </em>
+                        Thống kê
+                    </Link>
+                
+        }
+        else{
+            kappa=null
+        }
         var customerResult;
         if(localStorage.getItem('token') === null){
             customerResult = 
@@ -310,6 +324,9 @@ class MultiBooking extends Component {
                         </li>
                         <li>
                             {homeAppointmentSession}
+                        </li>
+                        <li>
+                            {kappa}
                         </li>
                         <li>
                             {addAccount}

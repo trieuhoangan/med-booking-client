@@ -280,7 +280,20 @@ class StayBooking extends Component {
         } else {
             addAccount = null;
         }
-        
+        var kappa;
+        if(localStorage.getItem('token')===null){
+            kappa=
+                    <Link to="/Kappa">
+                        <em className="fa fa-dashboard">
+                            &nbsp;
+                        </em>
+                        Thống kê
+                    </Link>
+                
+        }
+        else{
+            kappa=null
+        }
         return(
             <div>
                 {/* sidebar */}
@@ -335,6 +348,9 @@ class StayBooking extends Component {
                         </li>
                         <li>
                             {homeAppointmentSession}
+                        </li>
+                        <li>
+                            {kappa}
                         </li>
                         <li>
                             {addAccount}
