@@ -138,7 +138,7 @@ class CancelBooking extends Component {
             addAccount = null;
         }
         var kappa;
-        if(localStorage.getItem('token')===null){
+        if(localStorage.getItem('token')!==null){
             kappa=
                     <Link to="/Kappa">
                         <em className="fa fa-dashboard">

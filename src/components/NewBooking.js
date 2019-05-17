@@ -299,7 +299,7 @@ class NewBooking extends Component {
                             </Link>
         }
         var kappa;
-        if(localStorage.getItem('token')===null){
+        if(localStorage.getItem('token')!==null){
             kappa=
                     <Link to="/Kappa">
                         <em className="fa fa-dashboard">
